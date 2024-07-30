@@ -1,5 +1,19 @@
 # Site Generation Script
 
+The script is written within [./tenant/contosoworks/script.ps1](./tenant/contosoworks)
+
+The script is written to be able to be used with any template, simply move the script into the folder above /source/ that contains your template.xml  
+It will take the /source/ folder and create a template.pnp out of it, upload the template to "Shared Documents" on SharePoint, and use that to apply to the sites.  
+The script first prompts your credentials and creates a credentials.xml file within the same folder as the script, and can then be used on subsequent executions
+
+### Script Requirements
+
+- Install-Module PnP.Powershell
+- Install-Module ThreadJob
+
+- Edit the script file to output the desired amount of sites and batch amounts
+- **add credentials.xml to .gitignore**
+
 # SharePoint Provisioning Templates
 
 Repository for SharePoint PnP Provisioning templates to automate site / tenant level provisioning logic. Templates are divided on different folders based on the structure and needed permissions.
