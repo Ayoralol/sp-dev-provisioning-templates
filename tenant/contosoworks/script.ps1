@@ -7,7 +7,6 @@ $sitePrefix = "bigtest"
 $credPath = "./credentials.xml"
 $jobs = @()
 
-# Function to get and store credentials if not stored
 function Get-Stored-Credential {
     param (
         [string]$credFilePath
@@ -24,18 +23,17 @@ function Get-Stored-Credential {
         Write-Host "Using stored credentials from $credFilePath"
     }
 }
+
 Get-Stored-Credential -credFilePath $credPath
 
 $storedCreds = Import-Clixml -Path $credPath
 $cred = $storedCreds.Credential
 $spUrl = $storedCreds.SharePointUrl
 
-# Import and connect with creds
 Import-Module PnP.PowerShell
 Import-Module ThreadJob
 Connect-PnPOnline -Url $spUrl -Credentials $cred
 
-# Convert folder and upload to library
 Convert-PnPFolderToSiteTemplate -Folder $templateFolderPath -Out $templatePnpPath
 Add-PnPFile -Path $templatePnpPath -Folder "Shared Documents"
 $fileExists = Get-PnPFile -Url "$templateLibraryUrl" -AsListItem -ErrorAction SilentlyContinue
@@ -46,7 +44,6 @@ if ($fileExists -ne $null) {
     exit
 }
 
-# Create and run batches of provisioning
 for ($i = 0; $i -lt $totalSites; $i += $batchSize) {
     $end = [math]::Min($i + $batchSize, $totalSites)
     $jobs += Start-ThreadJob -ScriptBlock {
@@ -84,7 +81,6 @@ for ($i = 0; $i -lt $totalSites; $i += $batchSize) {
 
 $jobs | ForEach-Object { $_ | Receive-Job -Wait }
 
-# Check job results and output errors
 $jobs | ForEach-Object {
     if ($_.State -eq 'Completed') {
         Write-Host "Job $($_.Id) completed successfully."
