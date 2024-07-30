@@ -10,6 +10,7 @@
     <pnp:Parameters>
       <pnp:Parameter Key="SiteTitle">Contoso Works</pnp:Parameter>
       <pnp:Parameter Key="SiteUrl">/sites/hr-works</pnp:Parameter>
+      <pnp:Parameter Key="SiteDescription"></pnp:Parameter>
       <pnp:Parameter Key="BenefitsSiteTitle">Benefits</pnp:Parameter>
       <pnp:Parameter Key="BenefitsSiteUrl">/sites/hr-live</pnp:Parameter>
     </pnp:Parameters>
@@ -415,7 +416,7 @@
         "disabledText":  "#c8c8c8"
         }
       </pnp:Theme>
-      <pnp:WebSettings RequestAccessEmail="" NoCrawl="false" WelcomePage="SitePages/Benefits.aspx" SiteLogo="{hosturl}{site}/SiteAssets/__sitelogo__logo_benefits.png" HubSiteUrl="{sequencesiteurl:MAIN}" AlternateCSS="" CommentsOnSitePagesDisabled="false" QuickLaunchEnabled="false" SearchScope="DefaultScope" />
+      <pnp:WebSettings RequestAccessEmail="" NoCrawl="false" WelcomePage="SitePages/Benefits.aspx" HubSiteUrl="https://forvbtnd.sharepoint.com/sites/05template" SiteLogo="{hosturl}{site}/SiteAssets/__sitelogo__logo_benefits.png" AlternateCSS="" CommentsOnSitePagesDisabled="false" QuickLaunchEnabled="false" SearchScope="DefaultScope" />
       <pnp:Navigation AddNewPagesToNavigation="true" CreateFriendlyUrlsForNewPages="true">
         <pnp:GlobalNavigation NavigationType="Structural">
           <pnp:StructuralNavigation RemoveExistingNodes="true" />
