@@ -1,4 +1,12 @@
-## Site Generation Script
+## #2 Initial template
+
+[Initial Template Link](https://forvbtnd.sharepoint.com/sites/05template)
+
+## #3 + #4 PR/Merge to Github
+
+[Github PR](https://github.com/Ayoralol/sp-dev-provisioning-templates/pull/1)
+
+## #5 Site Generation Script
 
 The script is written within [./tenant/contosoworks/script.ps1](./tenant/contosoworks)
 
