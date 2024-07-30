@@ -38,8 +38,6 @@ Connect-PnPOnline -Url $spUrl -Credentials $cred
 # Convert folder and upload to library
 Convert-PnPFolderToSiteTemplate -Folder $templateFolderPath -Out $templatePnpPath
 Add-PnPFile -Path $templatePnpPath -Folder "Shared Documents"
-
-# Check upload is completed properly
 $fileExists = Get-PnPFile -Url "$templateLibraryUrl" -AsListItem -ErrorAction SilentlyContinue
 if ($fileExists -ne $null) {
     Write-Host "Template uploaded successfully to $templateLibraryUrl"
@@ -54,6 +52,7 @@ for ($i = 0; $i -lt $totalSites; $i += $batchSize) {
     $jobs += Start-ThreadJob -ScriptBlock {
         param($start, $end, $sitePrefix, $templateLibraryUrl, $credPath)
 
+        # Re-Import within batches due to multiple instances of PowerShell
         Import-Module PnP.PowerShell
         Import-Module ThreadJob
         $storedCreds = Import-Clixml -Path $credPath
@@ -83,7 +82,6 @@ for ($i = 0; $i -lt $totalSites; $i += $batchSize) {
     } -ArgumentList $i, $end, $sitePrefix, $templateLibraryUrl, $credPath
 }
 
-# Wait for Jobs to complete
 $jobs | ForEach-Object { $_ | Receive-Job -Wait }
 
 # Check job results and output errors
@@ -96,5 +94,4 @@ $jobs | ForEach-Object {
     Remove-Job $_
 }
 
-# Confirm Script End
 Write-Host "Completed Script and Disconnected"
